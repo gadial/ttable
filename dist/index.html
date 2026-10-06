@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser-based university timetable planning workspace.">
+  <title>CourseCanvas · Timetable planner</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Cpath d='M14 20h36v30H14z' fill='none' stroke='%23f4f7fb' stroke-width='4'/%3E%3Cpath d='M14 30h36M26 20v30M38 20v30' stroke='%2368d8b5' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">CC</span><div><strong>CourseCanvas</strong><span>Timetable planner</span></div></div>
+    <div class="history-actions">
+      <button id="undoBtn" class="icon-btn" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+      <button id="redoBtn" class="icon-btn" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button>
+      <span id="saveStatus" class="save-status">● Saved locally</span>
+    </div>
+    <nav class="file-actions" aria-label="Data actions">
+      <button id="importJsonBtn" class="quiet-btn">Import JSON</button>
+      <button id="exportJsonBtn" class="primary-btn">Export backup</button>
+      <input id="jsonInput" type="file" accept="application/json,.json" hidden>
+    </nav>
+  </header>
+
+  <main>
+    <section class="workspace-head">
+      <div>
+        <p class="eyebrow">Academic planning workspace</p>
+        <h1>Build a week that works.</h1>
+      </div>
+      <div class="health-card" aria-live="polite">
+        <span id="healthIcon" class="health-icon">✓</span>
+        <div><strong id="healthTitle">No conflicts</strong><span id="healthCopy">Everything fits your constraints.</span></div>
+      </div>
+    </section>
+
+    <section class="draft-strip" aria-label="Timetable drafts">
+      <div id="draftTabs" class="draft-tabs" role="tablist"></div>
+      <button id="addDraftBtn" class="new-draft">＋ New draft</button>
+    </section>
+
+    <section class="planner-layout">
+      <aside class="course-bank panel">
+        <div class="panel-title"><div><p class="eyebrow">Course bank</p><h2>Unscheduled</h2></div><span id="courseCount" class="count-badge">0</span></div>
+        <form id="courseForm" class="compact-form">
+          <input id="courseName" required placeholder="Course name" aria-label="Course name">
+          <div class="form-row"><input id="courseNumber" placeholder="Course no." aria-label="Course number"><select id="courseDuration" aria-label="Course duration"><option value="1">1 hour</option><option value="2">2 hours</option><option value="3">3 hours</option></select></div>
+          <button class="add-course-btn" type="submit">Add course</button>
+        </form>
+        <p class="drag-hint">Drag a course onto the timetable. Drag it back here to unschedule.</p>
+        <div id="courseBank" class="course-list" aria-label="Unscheduled courses"></div>
+      </aside>
+
+      <section class="calendar-panel panel" aria-label="Weekly timetable">
+        <div class="calendar-head"><div><p class="eyebrow">Active schedule</p><h2 id="activeDraftTitle">Draft</h2></div><div class="legend"><span><i class="dot external"></i>External</span><span><i class="dot overlap"></i>Overlap</span></div></div>
+        <div class="calendar-scroll"><div id="calendar" class="calendar"></div></div>
+      </section>
+
+      <aside class="constraints panel">
+        <div class="panel-title"><div><p class="eyebrow">Protected time</p><h2>External courses</h2></div><span id="constraintCount" class="count-badge">0</span></div>
+        <p class="side-copy">Required courses from other faculties appear directly on every draft.</p>
+        <form id="constraintForm" class="compact-form">
+          <input id="constraintName" required placeholder="Course name" aria-label="External course name">
+          <input id="constraintNumber" placeholder="Course no." aria-label="External course number">
+          <div class="form-row"><select id="constraintDay" aria-label="Day"></select><select id="constraintTime" aria-label="Time"></select></div>
+          <button class="outline-btn" type="submit">Add external course</button>
+        </form>
+        <div class="import-box"><strong>Import a list</strong><span>CSV with one meeting per row</span><button id="csvBtn" class="quiet-btn">Choose CSV</button><input id="csvInput" type="file" accept="text/csv,.csv" hidden></div>
+        <div id="constraintList" class="constraint-list"></div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="overlapPopover" class="popover" hidden><div class="popover-head"><strong>Courses in this slot</strong><button id="closePopover" aria-label="Close">×</button></div><div id="popoverList"></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
