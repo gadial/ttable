@@ -1,0 +1,10 @@
+# Timetable preparation util
+
+This application is used as a helper in constructing a time table for university courses.
+
+1. The application should be written in Javascript, for client-side only usage, able to run from github.io or locally. Do not use node.js.
+2. Data preservation is top priority. Use the browser's capabilities to ensure data is saved after each action. All the data should be exportable and importable via a json file. Keep an undo/redo stack. Allow experimentation, having "draft" timetables, such that one can open a new draft without erasing existing ones, moving convenietely between drafts via tabs.
+3. The main GUI object is a timetable, separated according to configuration-provided times and days. The courses that should be scheduled in the table are given as rectangles, with the name of the course clearly visible inside. The rectangles should be draggable from a storage area to any slot in the timetable and back, snapping into the nearest timetable slot. Allow several rectangles in the same time slot, with visible que that there are some rectangles there and an easy way to browse through them by clicking.
+4. The default days are: Sunday, Monday, Tuesday, Wednesday, Thursday. The default times are 8:30-9:30, 9:30-10:30, 10:30-11:30, 11:30-12:30, 12:30-13:30, 13:30-14:30, 14:30-15:30, 15:30-16:30, 16:30-17:30, 17:30-18:30.
+4. We maintain a constraint list of "required external courses" - courses that are required by students of the same semester, but are from another faculty. They can be added one by one or imported from a csv file. As long as they are present, they show on the timetable itself, and if the user places rectangles that even partially cover them, a warning appears as long as they are covered.
+5. The CSV file for "required external courses" has the following columns: course number, course name, Sunday times, Monday times, Tuesday times, Wednesday times, Thursday times. Each line describes one specific time (so the rest of the time columns are empty); the same course may have many lines.
