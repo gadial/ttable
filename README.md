@@ -4,14 +4,14 @@ CourseCanvas is a client-side prototype for planning university course timetable
 
 ## Run it
 
-Open `dist/index.html` directly in a modern browser, or serve the repository with any static file server. For GitHub Pages, publish the `dist` directory (or copy its contents to the configured Pages source).
+Open `docs/index.html` directly in a modern browser, or serve the repository with any static file server. GitHub Pages publishes the `docs` directory.
 
 ## How it is built
 
-- `dist/index.html` contains the semantic application shell and forms.
-- `dist/style.css` provides the responsive three-panel desktop layout and stacked mobile layout.
-- `dist/app.js` contains the state model, rendering, drag-and-drop, imports/exports, conflict checks, and persistence.
-- `.openai/hosting.json` identifies `dist` as the static publishing directory.
+- `docs/index.html` contains the semantic application shell and forms.
+- `docs/style.css` provides the responsive three-panel desktop layout and stacked mobile layout.
+- `docs/app.js` contains the state model, rendering, drag-and-drop, imports/exports, conflict checks, and persistence.
+- `.openai/hosting.json` identifies `docs` as the static publishing directory.
 
 The app has no third-party dependencies. All state is stored in the browser under the `coursecanvas.v1` local-storage key after every state-changing action.
 
