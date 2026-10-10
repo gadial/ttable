@@ -27,6 +27,8 @@ The app has no third-party dependencies. All state is stored in the browser unde
 - Import courses to schedule and program requirements separately. Split weekly patterns create multiple draggable meetings, and every meeting in every advertised group must be placed.
 - Select a semester per draft. The scheduling-problems panel evaluates every relevant program with a global group-selection search and explains infeasible or incomplete schedules immediately.
 - **Auto schedule** produces ranked, browsable, read-only suggestions without blocking the interface. A suggestion becomes editable only after it is copied into a new draft.
+- The top data bar keeps all three UTF-8 CSV imports together. Manual course and external-meeting entry remains available in collapsed disclosure panels.
+- Internally scheduled courses can be removed individually; **Reset all data** clears courses, constraints, programs, drafts, suggestions, history, and persisted browser state after confirmation.
 - Export all application data as JSON and restore it with **Import JSON**. JSON backup includes every draft, course, placement, and external constraint.
 
 ## CSV format

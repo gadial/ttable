@@ -35,6 +35,17 @@
       </div>
     </section>
 
+    <section class="data-toolbar" aria-label="CSV data imports">
+      <div><p class="eyebrow">Data setup</p><strong>Import CSV files</strong><span>UTF-8 recommended</span></div>
+      <button id="scheduleCsvBtn" class="quiet-btn" type="button">Courses to schedule</button>
+      <button id="csvBtn" class="quiet-btn" type="button">External courses</button>
+      <button id="programCsvBtn" class="quiet-btn" type="button">Programs</button>
+      <button id="resetAllBtn" class="danger-btn" type="button">Reset all data</button>
+      <input id="scheduleCsvInput" type="file" accept="text/csv,.csv" hidden>
+      <input id="csvInput" type="file" accept="text/csv,.csv" hidden>
+      <input id="programCsvInput" type="file" accept="text/csv,.csv" hidden>
+    </section>
+
     <section class="draft-strip" aria-label="Timetable drafts">
       <div id="draftTabs" class="draft-tabs" role="tablist"></div>
       <button id="addDraftBtn" class="new-draft">＋ New draft</button>
@@ -45,13 +56,13 @@
     <section class="planner-layout">
       <aside class="course-bank panel">
         <div class="panel-title"><div><p class="eyebrow">Course bank</p><h2>Unscheduled</h2></div><span id="courseCount" class="count-badge">0</span></div>
-        <form id="courseForm" class="compact-form">
+        <details class="manual-entry"><summary>Add a course manually</summary><form id="courseForm" class="compact-form">
           <input id="courseName" required placeholder="Course name" aria-label="Course name">
           <div class="form-row"><input id="courseNumber" placeholder="Course no." aria-label="Course number"><select id="courseDuration" aria-label="Course duration"><option value="1">1 hour</option><option value="2">2 hours</option><option value="3">3 hours</option></select></div>
           <button class="add-course-btn" type="submit">Add course</button>
-        </form>
+        </form></details>
         <p class="drag-hint">Drag a course onto the timetable. Drag it back here to unschedule.</p>
-        <div class="import-box"><strong>Import courses to schedule</strong><span>UTF-8 CSV with group counts and meeting patterns</span><button id="scheduleCsvBtn" class="quiet-btn" type="button">Choose CSV</button><input id="scheduleCsvInput" type="file" accept="text/csv,.csv" hidden></div>
+        <div id="courseCatalog" class="course-catalog" aria-label="Scheduled course list"></div>
         <div id="courseBank" class="course-list" aria-label="Unscheduled courses"></div>
       </aside>
 
@@ -63,16 +74,14 @@
       <aside class="constraints panel">
         <div class="panel-title"><div><p class="eyebrow">Protected time</p><h2>External courses</h2></div><span id="constraintCount" class="count-badge">0</span></div>
         <p class="side-copy">A draft is valid when every external course still has a complete lecture/tutorial option, or a laboratory option.</p>
-        <form id="constraintForm" class="compact-form">
+        <details class="manual-entry"><summary>Add an external meeting manually</summary><form id="constraintForm" class="compact-form">
           <input id="constraintName" required placeholder="Course name" aria-label="External course name">
           <input id="constraintNumber" placeholder="Course no." aria-label="External course number">
           <input id="constraintSection" required placeholder="Section code (e.g. SE024)" aria-label="External course section code">
           <div class="form-row"><select id="constraintType" aria-label="Meeting type"><option value="lecture">Lecture</option><option value="tutorial">Tutorial</option><option value="laboratory">Laboratory</option></select><select id="constraintDay" aria-label="Day"></select></div>
           <div class="form-row"><select id="constraintStart" aria-label="Start time"></select><select id="constraintEnd" aria-label="End time"></select></div>
           <button class="outline-btn" type="submit">Add external meeting</button>
-        </form>
-        <div class="import-box"><strong>Import a list</strong><span>Course, section, type, and Sunday–Thursday columns</span><button id="csvBtn" class="quiet-btn">Choose CSV</button><input id="csvInput" type="file" accept="text/csv,.csv" hidden></div>
-        <div class="import-box"><strong>Import programs</strong><span>All programs and semesters from UTF-8 CSV</span><button id="programCsvBtn" class="quiet-btn" type="button">Choose CSV</button><input id="programCsvInput" type="file" accept="text/csv,.csv" hidden></div>
+        </form></details>
         <section class="problem-panel" aria-live="polite"><div class="panel-title"><h3>Scheduling problems</h3><span id="problemCount" class="count-badge">0</span></div><div id="problemList" class="problem-list"></div></section>
         <div id="constraintList" class="constraint-list"></div>
       </aside>
