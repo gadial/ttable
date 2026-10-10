@@ -10,7 +10,8 @@ Open `docs/index.html` directly in a modern browser, or serve the repository wit
 
 - `docs/index.html` contains the semantic application shell and forms.
 - `docs/style.css` provides the responsive three-panel desktop layout and stacked mobile layout.
-- `docs/app.js` contains the state model, rendering, drag-and-drop, imports/exports, conflict checks, and persistence.
+- `docs/app-v3.js` contains the current state model, rendering, program validation, suggestion browser, imports/exports, and persistence.
+- `docs/solver-worker.js` runs auto-scheduling in a background Web Worker.
 - `.openai/hosting.json` identifies `docs` as the static publishing directory.
 
 The app has no third-party dependencies. All state is stored in the browser under the `coursecanvas.v1` local-storage key after every state-changing action.
@@ -25,6 +26,7 @@ The app has no third-party dependencies. All state is stored in the browser unde
 - Add external course meetings manually or import the CSV format described in `outline.md`. The planner preserves lecture, tutorial, and laboratory groups and reports a constraint failure only when a course has no collision-free valid group combination.
 - Import courses to schedule and program requirements separately. Split weekly patterns create multiple draggable meetings, and every meeting in every advertised group must be placed.
 - Select a semester per draft. The scheduling-problems panel evaluates every relevant program with a global group-selection search and explains infeasible or incomplete schedules immediately.
+- **Auto schedule** produces ranked, browsable, read-only suggestions without blocking the interface. A suggestion becomes editable only after it is copied into a new draft.
 - Export all application data as JSON and restore it with **Import JSON**. JSON backup includes every draft, course, placement, and external constraint.
 
 ## CSV format
