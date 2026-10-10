@@ -49,11 +49,12 @@
           <button class="add-course-btn" type="submit">Add course</button>
         </form>
         <p class="drag-hint">Drag a course onto the timetable. Drag it back here to unschedule.</p>
+        <div class="import-box"><strong>Import courses to schedule</strong><span>UTF-8 CSV with group counts and meeting patterns</span><button id="scheduleCsvBtn" class="quiet-btn" type="button">Choose CSV</button><input id="scheduleCsvInput" type="file" accept="text/csv,.csv" hidden></div>
         <div id="courseBank" class="course-list" aria-label="Unscheduled courses"></div>
       </aside>
 
       <section class="calendar-panel panel" aria-label="Weekly timetable">
-        <div class="calendar-head"><div><p class="eyebrow">Active schedule</p><h2 id="activeDraftTitle">Draft</h2></div><div class="legend"><span><i class="dot external"></i>External</span><span><i class="dot overlap"></i>Overlap</span></div></div>
+        <div class="calendar-head"><div><p class="eyebrow">Active schedule</p><h2 id="activeDraftTitle">Draft</h2></div><label class="semester-picker">Semester <select id="activeSemester"></select></label><div class="legend"><span><i class="dot external"></i>External</span><span><i class="dot overlap"></i>Overlap</span></div></div>
         <div class="calendar-scroll"><div id="calendar" class="calendar"></div></div>
       </section>
 
@@ -69,6 +70,8 @@
           <button class="outline-btn" type="submit">Add external meeting</button>
         </form>
         <div class="import-box"><strong>Import a list</strong><span>Course, section, type, and Sunday–Thursday columns</span><button id="csvBtn" class="quiet-btn">Choose CSV</button><input id="csvInput" type="file" accept="text/csv,.csv" hidden></div>
+        <div class="import-box"><strong>Import programs</strong><span>All programs and semesters from UTF-8 CSV</span><button id="programCsvBtn" class="quiet-btn" type="button">Choose CSV</button><input id="programCsvInput" type="file" accept="text/csv,.csv" hidden></div>
+        <section class="problem-panel" aria-live="polite"><div class="panel-title"><h3>Scheduling problems</h3><span id="problemCount" class="count-badge">0</span></div><div id="problemList" class="problem-list"></div></section>
         <div id="constraintList" class="constraint-list"></div>
       </aside>
     </section>
@@ -76,6 +79,6 @@
 
   <div id="overlapPopover" class="popover" hidden><div class="popover-head"><strong>Courses in this slot</strong><button id="closePopover" aria-label="Close">×</button></div><div id="popoverList"></div></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
+  <script src="app-v3.js"></script>
 </body>
 </html>

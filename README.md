@@ -23,6 +23,8 @@ The app has no third-party dependencies. All state is stored in the browser unde
 - Create multiple timetable drafts and switch between them with tabs. Double-click a tab to rename it. Each draft keeps independent placements while sharing the course bank and constraints.
 - Undo and redo cover course, draft, placement, and constraint changes. Keyboard shortcuts `Ctrl/Cmd+Z` and `Ctrl/Cmd+Y` are supported.
 - Add external course meetings manually or import the CSV format described in `outline.md`. The planner preserves lecture, tutorial, and laboratory groups and reports a constraint failure only when a course has no collision-free valid group combination.
+- Import courses to schedule and program requirements separately. Split weekly patterns create multiple draggable meetings, and every meeting in every advertised group must be placed.
+- Select a semester per draft. The scheduling-problems panel evaluates every relevant program with a global group-selection search and explains infeasible or incomplete schedules immediately.
 - Export all application data as JSON and restore it with **Import JSON**. JSON backup includes every draft, course, placement, and external constraint.
 
 ## CSV format
@@ -37,7 +39,7 @@ Each row provides one time range in one weekday column. Repeated rows for the sa
 
 ## Data model
 
-The persisted JSON contains `courses`, structured external-course `constraints`, `drafts`, and `activeDraftId`. Each constraint contains groups, and each group contains typed meetings with day, start, and end values. Draft placements map a course ID to a zero-based day and time index. The exported object includes a `version` field; version 1 constraints are migrated to standalone laboratory groups so old local data and backups remain usable.
+The version 3 persisted JSON contains structured internal `courses`, external-course `constraints`, semester-aware `programs`, `drafts`, and `activeDraftId`. Internal groups contain draggable meetings with durations; external groups contain fixed day/start/end meetings. Draft placements map meeting IDs to zero-based day and time positions. Older local data and backups are migrated automatically.
 
 ## Browser support
 
