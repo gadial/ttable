@@ -22,22 +22,22 @@ The app has no third-party dependencies. All state is stored in the browser unde
 - Multiple courses may share a slot. An orange count badge opens a compact list of all courses occupying that time.
 - Create multiple timetable drafts and switch between them with tabs. Double-click a tab to rename it. Each draft keeps independent placements while sharing the course bank and constraints.
 - Undo and redo cover course, draft, placement, and constraint changes. Keyboard shortcuts `Ctrl/Cmd+Z` and `Ctrl/Cmd+Y` are supported.
-- Add external courses manually or import the CSV format described in `outline.md`. Conflicting timetable cells are striped orange and the schedule health summary reports them.
+- Add external course meetings manually or import the CSV format described in `outline.md`. The planner preserves lecture, tutorial, and laboratory groups and reports a constraint failure only when a course has no collision-free valid group combination.
 - Export all application data as JSON and restore it with **Import JSON**. JSON backup includes every draft, course, placement, and external constraint.
 
 ## CSV format
 
-The importer expects a header followed by these columns:
+The importer accepts a headerless export (or an optional header) with these leading columns:
 
 ```text
-course number,course name,Sunday times,Monday times,Tuesday times,Wednesday times,Thursday times
+course number,course name,section/group,meeting type,Sunday time,Monday time,Tuesday time,Wednesday time,Thursday time,...
 ```
 
-Each row may provide one meeting time in one day column, as specified. The importer also tolerates multiple times in a cell when separated by `;` or `|`. Times must match configured slots such as `8:30-9:30`.
+Each row provides one time range in one weekday column. Repeated rows for the same course, section, and type are combined into a multi-meeting group. Trailing source-system columns are ignored.
 
 ## Data model
 
-The persisted JSON contains `courses`, `constraints`, `drafts`, and `activeDraftId`. Draft placements map a course ID to a zero-based day and time index. The exported object includes a `version` field for future migrations.
+The persisted JSON contains `courses`, structured external-course `constraints`, `drafts`, and `activeDraftId`. Each constraint contains groups, and each group contains typed meetings with day, start, and end values. Draft placements map a course ID to a zero-based day and time index. The exported object includes a `version` field; version 1 constraints are migrated to standalone laboratory groups so old local data and backups remain usable.
 
 ## Browser support
 
